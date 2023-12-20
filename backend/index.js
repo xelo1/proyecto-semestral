@@ -7,11 +7,12 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const articuloRoutes = require("./routes/articuloRoutes");
+app.use("/api", articuloRoutes);
 
-
-// app.listen(port, () => {
-// console.log(`Servidor escuchando en http://localhost:${port}`);
-// });
+app.listen(port, () => {
+console.log(`Servidor escuchando en http://localhost:${port}`);
+});
 
 mongoose.set('strictQuery', false);
 

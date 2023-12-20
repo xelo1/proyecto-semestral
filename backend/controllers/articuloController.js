@@ -13,3 +13,12 @@ const createArticulo = async (req, res) => {
       return res.status(400).send({ message: error.message });
     }
 };
+
+module.exports = {
+    createArticulo
+    // createTratamiento,
+    // getTratamientos,
+    // updateTratamiento,
+    // deleteTratamiento,
+    // buscarPorNombreTratamiento,
+  };
