@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Inventario from './scenes/materiales/material_crud';
+import MaterialCrear from './scenes/materiales/material_crear';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 
 function Home() {
@@ -29,14 +30,10 @@ function App() {
             </li>
           </ul>
         </nav>
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/inventario" element={<Inventario />} />
-          {/* Add more routes as needed */}
-          {/* <Route path="/another-page" element={<AnotherPageComponent />} /> */}
-          {/* ... */}
-          {/* If you want a default route for unmatched paths */}
+          <Route path="/crear_inventario" element={<MaterialCrear />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
