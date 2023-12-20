@@ -1,72 +1,139 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+
+
+
+// const [inventario, setInventario] = useState([]);
+//   const [total, setTotal] = useState(0);            const para guardar los items. El use efect suma todos los inventarios
+
+
+// useEffect(() => {
+//     clienteAxios
+//       .get("/api/mostrarInv")
+//       .then((response) => {
+//         if (Array.isArray(response.data)) {
+//           const inventario = response.data.map((element) => ({
+//             ...element,
+//             id: element.id,
+//             total: element.precio_unitario * element.cant_mat,
+//           }));
+//           setInventario([...inventario, { id: "total", total: inventario.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0) }]);
+//           setTotal(inventario.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0));
+//         }
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   }, []);                                   Este useEffect es para consumir la API
+
+
+//   const [selectedRow, setSelectedRow] = useState(null);
+
+const handleEditarClick = (id) => {
+    // Navigate to the form page with the selected ID
+
+  };
+
+  const handleDeleteClick = (params) => {
+//     if (params.row && params.row.id) {
+//       const id = params.row.id;
+//       clienteAxios
+//         .delete(`/api/inventario/borrar/${id}`)
+//         .then((response) => {
+//           // eliminar el elemento de la tabla en el estado
+//           setInventario(inventario.filter((row) => row.id !== params.row.id));
+//         })
+//         .catch((error) => {                       Api para borrar cosas
+//           console.error(error);
+//         });
+//     }
+   };
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 90 },
   {
-    field: 'firstName',
-    headerName: 'First name',
+    field: 'nombre_mat',
+    headerName: 'Nombre Material',
     width: 150,
     editable: true,
   },
   {
-    field: 'lastName',
-    headerName: 'Last name',
+    field: 'tipo_mat',
+    headerName: 'Tipo Material',
     width: 150,
     editable: true,
   },
   {
-    field: 'age',
-    headerName: 'Age',
+    field: 'cantidad',
+    headerName: 'Cantidad Material',
     type: 'number',
-    width: 110,
+    width: 300,
     editable: true,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
   },
   {
     field: 'acciones',
-    headerName: 'acciones',
+    headerName: 'acciones',      //esto va a cambiar cuando estén las apis de editar y eliminar listas
     width: 300,
+    renderCell: (params) => (
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleEditarClick(params.row.id)}
+          >
+            Editar
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleDeleteClick(params.row.id)}
+          >
+            Eliminar
+          </Button>
+        </Box>
+      ),
   },
 ];
 
 const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+{id:1, nombre_mat:'cemento', tipo_mat:'cemento', cantidad:2}
 ];
 
-export default function DataGridDemo() {
+export default function material_crud() {
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
+<Box sx={{ height: 400, width: '80%', margin: '0 auto' }}>
+  <DataGrid
+    rows={rows}
+    columns={columns}
+    initialState={{
+      pagination: {
+        paginationModel: {
+          pageSize: 5,
+        },
+      },
+    }}
+    pageSizeOptions={[5]}
+    disableRowSelectionOnClick
+  />
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: 10,
+          left: 10,
+          display: 'flex',
+          gap: 1,
         }}
-        pageSizeOptions={[5]}
-        disableRowSelectionOnClick
-      />
+      >
+      <Button
+          variant="contained"
+          color="primary"
+          onClick=""
+        >
+          Crear Nuevo Material
+        </Button>
+        </Box>
     </Box>
   );
 }
