@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 
+app.use(express.json());
 dotenv.config();
 
 const articuloRoutes = require("./routes/articuloRoutes");
