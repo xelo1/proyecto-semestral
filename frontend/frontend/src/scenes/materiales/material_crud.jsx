@@ -99,7 +99,6 @@ const MaterialCrud = () => {
 
   return (
     <Box sx={{ height: 400, width: '80%', margin: '0 auto' }}>
-
     <h1>Inventario POLPAICO</h1>
       <DataGrid
         rows={rows}

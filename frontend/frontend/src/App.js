@@ -11,23 +11,13 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-ro
 function App() {
   return (
     <Router>
-      <div className="sidebar">
-        <Sidebarr />
-        </div>
-      <div className="App">      
-        <div className="App-content">
-          {/* <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/inventario">Inventario</Link>
-              </li>
-            </ul>
-          </nav> */}
+      <div className="app-container">
+        <div className="sidebar">
+          <Sidebarr />
+        </div>          
+        <div className="content">
           <Routes>
-            <Route path="/" element={<Home/>} />
+          <Route path="/" element={<Home/>} />
             <Route path="/inventario" element={<Inventario />} />
             <Route path="/crear_inventario" element={<MaterialCrear />} />
             <Route path="*" element={<Navigate to="/" />} />
@@ -35,7 +25,6 @@ function App() {
         </div>
       </div>
     </Router>
-  );
+  ); 
 }
-
 export default App;
