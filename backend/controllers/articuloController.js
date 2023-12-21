@@ -40,12 +40,13 @@ const getArticulos= async (req,res) => {
 
     try {
         const articulos = await Articulo.find().exec();
-
+        console.log(articulos);
         if (articulos.length === 0) {
         return res.status(404).send({ message: "No se han encontrado articulos" });
         }
 
         return res.status(200).send(articulos);
+        
     } catch (error) {
         return res.status(400).send({ message: "No se realizó la búsqueda" });
     }

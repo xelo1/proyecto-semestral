@@ -13,7 +13,12 @@ const MaterialCrud = () => {
   useEffect(() => {
     axios.get('http://localhost:3000/api/articulos')
       .then(response => {
-        setArticulos(response.data);
+        console.log("Respuesta de la API:", response.data);
+        const articulosConId = response.data.articulos.map(articulo => ({
+          ...articulo,
+          id: articulo._id,
+        }));
+        setArticulos(articulosConId); 
       })
       .catch(error => {
         console.error("Error al obtener los datos:", error);
@@ -104,7 +109,7 @@ const MaterialCrud = () => {
         <DataGrid
           rows={articulos}
           columns={columns}
-          getRowId={(row) => row._id} // Utilizando '_id' como identificador único
+          getRowId={(row) => row.id}
           initialState={{
             pagination: {
               paginationModel: {
