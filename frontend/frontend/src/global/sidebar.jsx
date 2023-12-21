@@ -1,29 +1,25 @@
 import React from "react";
-import '../App.css'
+import { Link } from "react-router-dom";
+import "../App.css";
 import { sidebarData } from "./sidebar_data";
 
-function Sidebarr() {
+function Sidebar() {
   return (
-    <div className="Sidebarr"> 
-      <ul className="SidebarList">
-        {sidebarData.map((val, key) => {
-          return (
-            <li
-              key={key}
-              className="row"
-              id={window.location.pathname === val.link? "active" : ""}
-              onClick={() => {
-                window.location.pathname = val.link;
-              }}
-            >
-              {" "}
-              <div id="icon">{val.icon}</div> <div id="title">{val.title}</div>
-            </li>
-          );
-        })}
-      </ul>
+    <div className="Sidebar">
+      <div className="menu">
+        {sidebarData.map((item, index) => (
+          <Link
+            to={item.link}
+            key={index}
+            className="menuItem"
+          >
+            <div className="icon" style={{ fontSize: '26px' }}>{item.icon}</div>
+            <div className="title" style={{ fontSize: '18px' }}>{item.title}</div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
 
-export default Sidebarr;
+export default Sidebar;

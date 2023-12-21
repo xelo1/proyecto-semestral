@@ -9,7 +9,9 @@ function Home() {
         marginTop: '150px',
         marginLeft: '150px', 
         marginRight: '150px',
-        backgroundColor: 'white' 
+        backgroundColor: 'white', 
+        boxShadow: '10px 10px 10px #aaa',  
+  borderRadius: 1  
       }}>
       
       <Typography variant="h1" component="h1">

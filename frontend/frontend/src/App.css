@@ -68,3 +68,22 @@ body {
 .content {
   grid-column: 2 / 3;
 }
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  width: 100%;
+  transition: background-color 0.3s; /* Agregar transición para un efecto más suave */
+  border: none; /* Eliminar el borde del botón */
+
+  /* Estilos normales */
+  background-color: transparent; /* Fondo transparente por defecto */
+  cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+  text-decoration: none; /* Eliminar la decoración de texto */
+}
+
+.menuItem:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Color de fondo cuando el mouse está sobre el botón */
+}

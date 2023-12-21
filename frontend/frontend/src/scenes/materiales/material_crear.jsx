@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import { Add } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-
 const MaterialCrear = ({ onMaterialCreate }) => {
   const [nombreMat, setNombreMat] = useState('');
   const [tipoMat, setTipoMat] = useState('');
@@ -14,15 +13,12 @@ const MaterialCrear = ({ onMaterialCreate }) => {
   const navigate = useNavigate();
 
   const handleCrearClick = () => {
-    if (nombreMat.trim() === '' || tipoMat.trim() === '' || cantidad.trim() === '') {
-      alert('Por favor, completa todos los campos'); //popup de error
-      return;
-    }
+    // ... (resto del código)
 
     onMaterialCreate({
       nombre_mat: nombreMat,
       tipo_mat: tipoMat,
-      cantidad: parseInt(cantidad, 10), // Convierte la cantidad a un número entero
+      cantidad: parseInt(cantidad, 10),
     });
 
     // Reinicia los campos después de crear un nuevo material
@@ -32,7 +28,8 @@ const MaterialCrear = ({ onMaterialCreate }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, marginLeft: 20, width: '80%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, marginLeft: 20, marginTop: 20, width: '80%', backgroundColor: 'white', borderRadius: 1, boxShadow: '10px 10px 10px #aaa'  }}>
+      <h1>Crear Material</h1>
       <TextField
         label="Nombre Material"
         variant="outlined"
