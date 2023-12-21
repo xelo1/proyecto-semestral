@@ -28,7 +28,14 @@ const MaterialCrear = ({ onMaterialCreate }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, marginLeft: 20, marginTop: 20, width: '80%', backgroundColor: 'white', borderRadius: 1, boxShadow: '10px 10px 10px #aaa'  }}>
+    <Box sx={{ display: 'flex',
+    flexDirection: 'column', 
+    gap: 1, marginLeft: 20, 
+    marginTop: 20, 
+    width: '80%', 
+    backgroundColor: 'white', 
+    borderRadius: 3, 
+    boxShadow: '10px 10px 10px #aaa'  }}>
       <h1>Crear Material</h1>
       <TextField
         label="Nombre Material"
