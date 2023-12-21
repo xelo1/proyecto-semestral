@@ -4,6 +4,7 @@ const api = express.Router();
 
 api.post("/articulo", articuloController.createArticulo);
 api.get("/articulos", articuloController.getArticulos);
+api.delete('/articulos/borrar/:id', articuloController.deleteArticulo);
 // api.put("/tratamiento/:id", tratamientoController.updateTratamiento);
 // api.delete("/Tratamiento/:id", tratamientoController.deleteTratamiento);
 // api.get("/tratamientoPorRut/:rut", tratamientoController.buscarPorNombreTratamiento);

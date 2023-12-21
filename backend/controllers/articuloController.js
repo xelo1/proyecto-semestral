@@ -65,12 +65,25 @@ const getArticulos= async (req,res) => {
     }
 
 }
+const deleteArticulo = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log("ID recibido para eliminar:", id);
+        const articulo = await Articulo.findByIdAndDelete(id);
+
+        if (articulo) {
+            res.status(200).send({ message: "Artículo eliminado con éxito" });
+        } else {
+            res.status(404).send({ message: "Artículo no encontrado" });
+        }
+    } catch (error) {
+        console.error("Error al eliminar el artículo:", error);
+        res.status(500).send({ message: "Error al eliminar el artículo" });
+    }
+}
+
 module.exports = {
     createArticulo,
-    getArticulos
-    // createTratamiento,
-    // getTratamientos,
-    // updateTratamiento,
-    // deleteTratamiento,
-    // buscarPorNombreTratamiento,
-  };
+    getArticulos,
+    deleteArticulo
+};
