@@ -99,7 +99,20 @@ const MaterialCrud = () => {
 
   return (
     <Box sx={{ height: 400, width: '80%', margin: '0 auto' }}>
-    <h1>Inventario POLPAICO</h1>
+       <Box sx={{
+  backgroundColor: 'white',
+  boxShadow: '10px 10px 10px #aaa',  
+  borderRadius: 1  
+}}>
+
+  <h1>Inventario POLPAICO</h1>
+
+</Box>
+    <Box sx={{ 
+      backgroundColor: 'white',
+      boxShadow: '10px 10px 10px #aaa',  
+      borderRadius: 2 
+    }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -113,6 +126,7 @@ const MaterialCrud = () => {
         pageSizeOptions={[5]}
         disableRowSelectionOnClick
       />
+      </Box>
       <Box
         sx={{
           position: 'absolute',
