@@ -1,14 +1,9 @@
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
-const articuloSchema = new Schema({
+const articulosSchema = new Schema({
 
     //Pasamos la estructura JSON que define el documento
-    id:{
-      type: ObjectId,
-      required:true,
-    },
     nombre: {
       type: String,
       required: true,
@@ -23,4 +18,4 @@ const articuloSchema = new Schema({
     },
   });
   
-  module.exports = mongoose.model("articulos", articuloSchema);
+  module.exports = mongoose.model("articulos", articulosSchema);

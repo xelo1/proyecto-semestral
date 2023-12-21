@@ -19,7 +19,7 @@ const usuario = "benja98";
 const password = "C4TMHb0G6MOmznU1";
 const dbName = "tienda";
 
-const uri = `mongodb+srv://${usuario}:${password}@benjaminjara.zbzg5fq.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${usuario}:${password}@benjaminjara.zbzg5fq.mongodb.net`;
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('conectado a mongodb'))

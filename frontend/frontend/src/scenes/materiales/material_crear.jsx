@@ -1,87 +1,48 @@
 import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { Add } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
-const MaterialCrear = ({ onMaterialCreate }) => {
-  const [nombreMat, setNombreMat] = useState('');
-  const [tipoMat, setTipoMat] = useState('');
-  const [cantidad, setCantidad] = useState('');
 
-  const navigate = useNavigate();
+const MaterialCrear = () => {
+  const [nombre, setNombre] = useState('');
+    const [descripcion, setDescripcion] = useState('');
+    const [stock, setStock] = useState('');
 
-  const handleCrearClick = () => {
-    // ... (resto del código)
+    
 
-    onMaterialCreate({
-      nombre_mat: nombreMat,
-      tipo_mat: tipoMat,
-      cantidad: parseInt(cantidad, 10),
-    });
-
-    // Reinicia los campos después de crear un nuevo material
-    setNombreMat('');
-    setTipoMat('');
-    setCantidad('');
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          // Crear un objeto con los datos del formulario
+          const nuevoArticulo = {
+              nombre,
+              descripcion,
+              stock
+          };
+  
+          // Enviar una solicitud POST al backend
+          const response = await axios.post('http://localhost:3000/api/articulo', nuevoArticulo);
+  
+          // Manejar la respuesta del servidor
+          if (response.status === 200 || response.status === 201) {
+              console.log('Artículo creado:', response.data);
+              // Opcional: Redirigir o mostrar un mensaje de éxito
+          }
+      } catch (error) {
+          console.error('Error al crear el artículo:', error);
+          // Opcional: Manejar errores (mostrar mensaje al usuario, etc.)
+      }
   };
 
   return (
-    <Box sx={{ display: 'flex',
-    flexDirection: 'column', 
-    gap: 1, marginLeft: 20, 
-    marginTop: 20, 
-    width: '80%', 
-    backgroundColor: 'white', 
-    borderRadius: 3, 
-    boxShadow: '10px 10px 10px #aaa'  }}>
-      <h1>Crear Material</h1>
-      <TextField
-        label="Nombre Material"
-        variant="outlined"
-        value={nombreMat}
-        onChange={(e) => setNombreMat(e.target.value)}
-      />
-      <TextField
-        label="Tipo Material"
-        variant="outlined"
-        value={tipoMat}
-        onChange={(e) => setTipoMat(e.target.value)}
-      />
-      <TextField
-        label="Cantidad"
-        variant="outlined"
-        value={cantidad}
-        onChange={(e) => setCantidad(e.target.value)}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<Add />}
-        onClick={handleCrearClick}
-      >
-        Crear
-      </Button>
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: 10,
-          left: 10,
-          display: 'flex',
-          gap: 1,
-        }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => navigate('/inventario')}
-        >
-          Volver
-        </Button>
-      </Box>
-    </Box>
-  );
+    <form onSubmit={handleSubmit}>
+        <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+        <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} />
+        <input type="number" value={stock} onChange={(e) => setStock(e.target.value)} />
+        <button type="submit">Crear Artículo</button>
+    </form>
+);
+
 };
+
 
 export default MaterialCrear;

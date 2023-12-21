@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 import { useEffect , useState} from 'react';
+
 const MaterialCrud = () => {
   const navigate = useNavigate();
   const [articulos, setArticulos] = useState([]);
@@ -14,11 +15,11 @@ const MaterialCrud = () => {
     axios.get('http://localhost:3000/api/articulos')
       .then(response => {
         console.log("Respuesta de la API:", response.data);
-        const articulosConId = response.data.articulos.map(articulo => ({
+        const articulosConId = response.data.map(articulo => ({
           ...articulo,
           id: articulo._id,
         }));
-        setArticulos(articulosConId); 
+        setArticulos(articulosConId);
       })
       .catch(error => {
         console.error("Error al obtener los datos:", error);
@@ -135,7 +136,7 @@ const MaterialCrud = () => {
           color="primary"
           onClick={() => navigate('/crear_inventario')}
         >
-          Crear Nuevo Material
+          Agregar Nuevo Articulo
         </Button>
       </Box>
     </Box>
