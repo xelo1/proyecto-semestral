@@ -14,13 +14,11 @@ const MaterialCrear = ({ onMaterialCreate }) => {
   const navigate = useNavigate();
 
   const handleCrearClick = () => {
-    // Validación básica, puedes mejorarla según tus necesidades
     if (nombreMat.trim() === '' || tipoMat.trim() === '' || cantidad.trim() === '') {
-      alert('Por favor, completa todos los campos');
+      alert('Por favor, completa todos los campos'); //popup de error
       return;
     }
 
-    // Llama a la función proporcionada por el padre con los datos del nuevo material
     onMaterialCreate({
       nombre_mat: nombreMat,
       tipo_mat: tipoMat,
