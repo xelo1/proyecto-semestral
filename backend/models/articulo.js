@@ -1,26 +1,24 @@
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Schema.Types.ObjectId;
 const Schema = mongoose.Schema;
 
 const articuloSchema = new Schema({
-
-    //Pasamos la estructura JSON que define el documento
-    id:{
-      type: ObjectId,
-      required:true,
+    id: {
+        type: Number,
+        required: true,
+        unique: true, // Asegura que cada id sea único
     },
     nombre: {
-      type: String,
-      required: true,
+        type: String,
+        required: true,
     },
     descripcion: {
-      type: String,
-      requiered: true,
+        type: String,
+        required: true,
     },
     stock: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: true,
     },
-  });
-  
-  module.exports = mongoose.model("articulos", articuloSchema);
+});
+
+module.exports = mongoose.model("articulos", articuloSchema);
