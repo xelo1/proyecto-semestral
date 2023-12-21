@@ -3,10 +3,22 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
-
+import axios from "axios"
+import { useEffect , useState} from 'react';
 const MaterialCrud = () => {
   const navigate = useNavigate();
+  const [articulos, setArticulos] = useState([]);
 
+
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/articulos')
+      .then(response => {
+        setArticulos(response.data);
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }, []);
 
 // useEffect(() => {
 //     clienteAxios
@@ -48,26 +60,9 @@ const MaterialCrud = () => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'nombre_mat',
-      headerName: 'Nombre Material',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'tipo_mat',
-      headerName: 'Tipo Material',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'cantidad',
-      headerName: 'Cantidad Material',
-      type: 'number',
-      width: 300,
-      editable: true,
-    },
+    { field: 'nombre', headerName: 'Nombre', width: 150, editable: true },
+    { field: 'descripcion', headerName: 'Descripción', width: 150, editable: true },
+    { field: 'stock', headerName: 'Stock', type: 'number', width: 110, editable: true },
     {
       field: 'acciones',
       headerName: 'acciones',
@@ -93,39 +88,33 @@ const MaterialCrud = () => {
     },
   ];
 
-  const rows = [
-    { id: 1, nombre_mat: 'cemento', tipo_mat: 'cemento', cantidad: 2 },
-  ];
+  const rows = articulos.map(articulo => ({
+    id: articulo.id, // Asegúrate de que cada artículo tenga un ID único
+    nombre: articulo.nombre,
+    descripcion: articulo.descripcion,
+    stock: articulo.stock
+  }));
 
   return (
     <Box sx={{ height: 400, width: '80%', margin: '0 auto' }}>
-       <Box sx={{
-  backgroundColor: 'white',
-  boxShadow: '10px 10px 10px #aaa',  
-  borderRadius: 1  
-}}>
-
-  <h1>Inventario POLPAICO</h1>
-
-</Box>
-    <Box sx={{ 
-      backgroundColor: 'white',
-      boxShadow: '10px 10px 10px #aaa',  
-      borderRadius: 2 
-    }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
+      <Box sx={{ backgroundColor: 'white', boxShadow: '10px 10px 10px #aaa', borderRadius: 1 }}>
+        <h1>Inventario POLPAICO</h1>
+      </Box>
+      <Box sx={{ backgroundColor: 'white', boxShadow: '10px 10px 10px #aaa', borderRadius: 2 }}>
+        <DataGrid
+          rows={articulos}
+          columns={columns}
+          getRowId={(row) => row._id} // Utilizando '_id' como identificador único
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[5]}
-        disableRowSelectionOnClick
-      />
+          }}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
+        />
       </Box>
       <Box
         sx={{
