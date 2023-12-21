@@ -6,5 +6,4 @@ api.post("/articulo", articuloController.createArticulo);
 api.get("/articulos", articuloController.getArticulos);
 api.delete("/borrar/:id", articuloController.deleteArticulo);
 
-
 module.exports = api;

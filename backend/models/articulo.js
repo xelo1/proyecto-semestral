@@ -3,22 +3,22 @@ const Schema = mongoose.Schema;
 
 const articuloSchema = new Schema({
     id: {
-        type: Number,
+        type: String,
         required: true,
-        unique: true, // Asegura que cada id sea único
+        unique: true
     },
     nombre: {
         type: String,
-        required: true,
+        required: true
     },
     descripcion: {
         type: String,
-        required: true,
+        required: true
     },
     stock: {
         type: Number,
-        required: true,
-    },
+        required: true
+    }
 });
 
-module.exports = mongoose.model("articulos", articuloSchema);
+module.exports = mongoose.model("Articulo", articuloSchema);
