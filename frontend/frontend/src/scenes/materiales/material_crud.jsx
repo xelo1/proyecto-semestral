@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
@@ -9,11 +8,11 @@ import { useEffect , useState} from 'react';
 
 const MaterialCrud = () => {
   const navigate = useNavigate();
-
   const [articulos, setArticulos] = useState([]);
 
+
   useEffect(() => {
-    axios.get('http://localhost:3001/api/articulos')
+    axios.get('http://localhost:3000/api/articulos')
       .then(response => {
         console.log("Respuesta de la API:", response.data);
         const articulosConId = response.data.map(articulo => ({
@@ -27,45 +26,52 @@ const MaterialCrud = () => {
       });
   }, []);
 
+// useEffect(() => {
+//     clienteAxios
+//       .get("/api/mostrarInv")
+//       .then((response) => {
+//         if (Array.isArray(response.data)) {
+//           const inventario = response.data.map((element) => ({
+//             ...element,
+//             id: element.id,
+//             total: element.precio_unitario * element.cant_mat,
+//           }));
+//           setInventario([...inventario, { id: "total", total: inventario.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0) }]);
+//           setTotal(inventario.reduce((accumulator, currentValue) => accumulator + currentValue.total, 0));
+//         }
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//       });
+//   }, []);                                   Este useEffect es para consumir la API
+
+
   const handleEditarClick = (id) => {
-    // Implementa la lógica para editar un artículo según su ID
+    // Navigate to the form page with the selected ID
   };
 
-  const handleDeleteClick = (id) => {
-    axios.delete(`/api/inventario/borrar/${id}`)
-      .then(() => {
-        // Actualiza el estado de artículos después de la eliminación
-        setArticulos((prevArticulos) => prevArticulos.filter((row) => row.id !== id));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleDeleteClick = (params) => {
+    //     if (params.row && params.row.id) {
+//       const id = params.row.id;
+//       clienteAxios
+//         .delete(`/api/inventario/borrar/${id}`)
+//         .then((response) => {
+//           // eliminar el elemento de la tabla en el estado
+//           setInventario(inventario.filter((row) => row.id !== params.row.id));
+//         })
+//         .catch((error) => {                       Api para borrar cosas
+//           console.error(error);
+//         });
+//     }
   };
 
   const columns: GridColDef[] = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'nombre_mat',
-      headerName: 'Nombre Material',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'tipo_mat',
-      headerName: 'Tipo Material',
-      width: 150,
-      editable: true,
-    },
-    {
-      field: 'cantidad',
-      headerName: 'Cantidad Material',
-      type: 'number',
-      width: 300,
-      editable: true,
-    },
+    { field: 'nombre', headerName: 'Nombre', width: 150, editable: true },
+    { field: 'descripcion', headerName: 'Descripción', width: 150, editable: true },
+    { field: 'stock', headerName: 'Stock', type: 'number', width: 110, editable: true },
     {
       field: 'acciones',
-      headerName: 'Acciones',
+      headerName: 'acciones',
       width: 300,
       renderCell: (params) => (
         <Box sx={{ display: 'flex', gap: 1 }}>
@@ -88,29 +94,32 @@ const MaterialCrud = () => {
     },
   ];
 
-  // Agrega la propiedad 'key' a cada objeto en el array 'articulos'
-  const rowsWithKeys = articulos.map((row) => ({ ...row, key: row.id }));
+  const rows = articulos.map(articulo => ({
+    id: articulo.id, // Asegúrate de que cada artículo tenga un ID único
+    nombre: articulo.nombre,
+    descripcion: articulo.descripcion,
+    stock: articulo.stock
+  }));
 
   return (
     <Box sx={{ height: 400, width: '80%', margin: '0 auto' }}>
-      <Box sx={{ 
-        backgroundColor: 'white',
-        boxShadow: '10px 10px 10px #aaa',  
-        borderRadius: 1 
-      }}>
+      <Box sx={{ backgroundColor: 'white', boxShadow: '10px 10px 10px #aaa', borderRadius: 1 }}>
         <h1>Inventario POLPAICO</h1>
       </Box>
-      <Box sx={{ 
-        backgroundColor: 'white',
-        boxShadow: '10px 10px 10px #aaa',  
-        borderRadius: 2 
-      }}>
+      <Box sx={{ backgroundColor: 'white', boxShadow: '10px 10px 10px #aaa', borderRadius: 2 }}>
         <DataGrid
-          rows={rowsWithKeys}
+          rows={articulos}
           columns={columns}
-          pageSize={5}
-          disableRowSelectionOnClick
           getRowId={(row) => row.id}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          disableRowSelectionOnClick
         />
       </Box>
       <Box
